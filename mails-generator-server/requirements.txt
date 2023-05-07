@@ -1,0 +1,6 @@
+openai
+fastapi[all]
+uvicorn[standard]
+pydantic
+typing
+asyncio
