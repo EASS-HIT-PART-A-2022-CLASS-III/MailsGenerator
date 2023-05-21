@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 
-from mailsGenerator import *
+from app.mailsGenerator import *
 
 
 class BusinessInfo(BaseModel):
@@ -29,9 +29,14 @@ async def root():
 @app.post("/getmails")
 async def getmails(businessInfo: BusinessInfo):
     generated = await generateAllMails(
-        businessInfo.companyName, businessInfo.businessAbout, businessInfo.clientsDream,
-        businessInfo.clientsAvoid, businessInfo.clientsProblem, businessInfo.influencer)
+        businessInfo.companyName,
+        businessInfo.businessAbout,
+        businessInfo.clientsDream,
+        businessInfo.clientsAvoid,
+        businessInfo.clientsProblem,
+        businessInfo.influencer,
+    )
 
     mails = GeneratedMails(mails=generated)
 
-    return (mails)
+    return mails

@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 import pytest
 
 from app.main import app
-from mailsGenerator import *
+from app.mailsGenerator import *
 
 client = TestClient(app)
 
@@ -13,6 +13,7 @@ test_prompt = "hello world"
 def test_client():
     with TestClient(app) as client:
         yield client
+
 
 # Test root
 

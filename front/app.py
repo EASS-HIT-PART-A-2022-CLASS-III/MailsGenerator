@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import re
+import httpx
 
 
 def is_valid_email(email):
@@ -90,3 +91,14 @@ if buttonClicked == 1:
             st.success(
                 "Form subbmited successfully! we will send you the info in the given email!"
             )
+
+demoButton = st.button(
+    label="DEMOOOOO",
+    type="primary",
+    # on_click=generate_mails,
+    # args=(email_address, business_name),
+)
+
+if demoButton == 1:
+    demoResponse = httpx.get("http://mails-generator-service/")
+    st.write(demoResponse)

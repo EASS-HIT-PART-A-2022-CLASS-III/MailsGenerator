@@ -1,6 +1,6 @@
 import openai
 import asyncio
-from prompts import *
+from app.prompts import *
 
 key = "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"
 
@@ -10,10 +10,7 @@ modelCode = "gpt-3.5-turbo"
 
 async def generateMailFromChatgpt(prompt):
     completion = openai.ChatCompletion.create(
-        model=modelCode,
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
+        model=modelCode, messages=[{"role": "user", "content": prompt}]
     )
 
     # print(completion.choices[0].message.content)
@@ -23,10 +20,17 @@ async def generateMailFromChatgpt(prompt):
 
 # calling the chatgpt in async, because the newer models don't have yet one http call for many prompts,
 # need to send a request for each prompt
-async def generateAllMails(companyName, businessAbout, clientsDream, clientsAvoid, clientsProblem, influencer):
-
-    prompts = getAllPrompts(companyName, businessAbout,
-                            clientsDream, clientsAvoid, clientsProblem, influencer)
+async def generateAllMails(
+    companyName, businessAbout, clientsDream, clientsAvoid, clientsProblem, influencer
+):
+    prompts = getAllPrompts(
+        companyName,
+        businessAbout,
+        clientsDream,
+        clientsAvoid,
+        clientsProblem,
+        influencer,
+    )
 
     asyncTasks = []
 
