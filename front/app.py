@@ -100,5 +100,5 @@ demoButton = st.button(
 )
 
 if demoButton == 1:
-    demoResponse = httpx.get("http://mails-generator-service/")
+    demoResponse = httpx.get("http://mails-generator-service:8000/")
     st.write(demoResponse)
