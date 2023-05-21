@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  mails-generator-service:
+    build: ./mails-generator-server
+    volumes:
+      - ./mails-generator-server:/usr/src/app
+    ports:
+      - 8000:8000
+
+  frontend-service:
+    build: ./front
+    volumes:
+      - ./front:/usr/src/app
+    ports:
+      - 8501:8501
+    depends_on:
+      - mails-generator-service
