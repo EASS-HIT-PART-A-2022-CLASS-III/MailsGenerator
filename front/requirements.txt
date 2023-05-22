@@ -1,2 +1,2 @@
-streamlit
-httpx
+streamlit==1.22.0
+httpx==0.24.0

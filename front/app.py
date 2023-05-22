@@ -93,7 +93,7 @@ if buttonClicked == 1:
             )
 
 demoButton = st.button(
-    label="DEMOOOOO",
+    label="check server",
     type="primary",
     # on_click=generate_mails,
     # args=(email_address, business_name),
