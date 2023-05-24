@@ -1,6 +1,9 @@
 import openai
 import asyncio
+
 from app.prompts import *
+
+from models import *
 
 key = "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"
 

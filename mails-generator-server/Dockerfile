@@ -1,8 +1,9 @@
-FROM python:latest
+FROM python:3.8
 
 WORKDIR /backend
 
-COPY . .
+COPY ./mails-generator-server .
+COPY common .
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 

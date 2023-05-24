@@ -5,13 +5,14 @@ FROM python:3.9-slim
 WORKDIR /front
 
 # Copy the requirements file into the container
-COPY requirements.txt .
+COPY ./front/requirements.txt .
 
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the content of the current directory into the container
-COPY . .
+COPY ./front .
+COPY common .
 
 # Expose the port that your Streamlit app will be running on
 EXPOSE 8501

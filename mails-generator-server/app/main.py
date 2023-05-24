@@ -4,18 +4,7 @@ from typing import List
 
 from app.mailsGenerator import *
 
-
-class BusinessInfo(BaseModel):
-    companyName: str
-    businessAbout: str
-    clientsDream: str
-    clientsAvoid: str
-    clientsProblem: str
-    influencer: str
-
-
-class GeneratedMails(BaseModel):
-    mails: List[str]
+from models import BusinessInfo, singleMail, GeneratedMails
 
 
 app = FastAPI()
