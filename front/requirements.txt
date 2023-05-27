@@ -1,2 +1,4 @@
 streamlit==1.22.0
 httpx==0.24.0
+pydantic==1.10.7
+typing==3.7.4.3

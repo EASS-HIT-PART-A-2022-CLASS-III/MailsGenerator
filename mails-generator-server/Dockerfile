@@ -1,6 +1,6 @@
 FROM python:3.8
 
-WORKDIR /backend
+WORKDIR /backend-generator
 
 COPY ./mails-generator-server .
 COPY common .

@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
+import httpx
+import asyncio
+
 
 from app.mailsGenerator import *
 
-from models import BusinessInfo, singleMail, GeneratedMails
+from models import BusinessInfo, GeneratedMails
 
 
 app = FastAPI()
@@ -12,20 +15,34 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
+    print("generator service get root", flush=True)
     return {"message": "Hello World"}
 
 
-@app.post("/getmails")
-async def getmails(businessInfo: BusinessInfo):
+async def generateMailsAndSend(businessInfo: BusinessInfo):
+    print("generator , generateMailsAndSend", flush=True)
+
     generated = await generateAllMails(
         businessInfo.companyName,
         businessInfo.businessAbout,
         businessInfo.clientsDream,
         businessInfo.clientsAvoid,
         businessInfo.clientsProblem,
-        businessInfo.influencer,
     )
 
-    mails = GeneratedMails(mails=generated)
+    mails = GeneratedMails(emailAddress=businessInfo.email, mails=generated)
 
-    return mails
+    url = "http://main-service:8001/sendmails"
+    data = mails.dict()
+    httpx.post(url, json=data)
+
+    print("generator end generating, post main-service:8001/sendmails", flush=True)
+
+
+@app.post("/getmails")
+async def getmails(businessInfo: BusinessInfo):
+    print("generator getmails called", flush=True)
+
+    asyncio.create_task(generateMailsAndSend(businessInfo))
+
+    return True

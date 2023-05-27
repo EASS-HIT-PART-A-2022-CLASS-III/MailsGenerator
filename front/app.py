@@ -2,6 +2,10 @@ import streamlit as st
 import requests
 import re
 import httpx
+from pydantic import BaseModel
+from typing import List
+
+from models import BusinessInfo
 
 
 def is_valid_email(email):
@@ -42,6 +46,10 @@ email_address = st.text_input(
     label="Your Email address", placeholder="example@mail.com"
 )
 
+second_email_address = st.text_input(
+    label="please enter your Email address again", placeholder="example@mail.com"
+)
+
 business_name = st.text_input(
     label="Business Name",
 )
@@ -73,32 +81,86 @@ buttonClicked = st.button(
     # args=(email_address, business_name),
 )
 
+
 if buttonClicked == 1:
     # check if all fields are ok
-    if is_valid_email(email_address) == False:
-        st.error("Please Enter a valid email")
-    else:
-        if (
-            business_name == ""
-            or business_about == ""
-            or clients_dream == ""
-            or clients_avoid == ""
-            or clients_problem == ""
-        ):
-            st.error("Please answer all questions")
-
+    if "httpx_sent" not in st.session_state:
+        if is_valid_email(email_address) == False:
+            st.error("Please Enter a valid email")
+        elif second_email_address != email_address:
+            st.error("The email addresses do not match")
         else:
-            st.success(
-                "Form subbmited successfully! we will send you the info in the given email!"
-            )
+            if (
+                business_name == ""
+                or business_about == ""
+                or clients_dream == ""
+                or clients_avoid == ""
+                or clients_problem == ""
+            ):
+                st.error("Please answer all questions")
 
-demoButton = st.button(
-    label="check server",
+            else:
+                businessInfo = BusinessInfo(
+                    email=email_address,
+                    companyName=business_name,
+                    businessAbout=business_about,
+                    clientsDream=clients_dream,
+                    clientsAvoid=clients_avoid,
+                    clientsProblem=clients_problem,
+                )
+                url = "http://main-service:8001/getmails"
+                data = businessInfo.dict()
+                response = httpx.post(url, json=data)
+
+                st.session_state["httpx_sent"] = True
+                st.success(
+                    "Form subbmited successfully! we will send you the info in the given email!"
+                )
+                # st.write(response)
+    else:
+        st.success("Form already submitted!")
+
+
+demoMainButton = st.button(
+    label="check main server",
     type="primary",
     # on_click=generate_mails,
     # args=(email_address, business_name),
 )
 
-if demoButton == 1:
-    demoResponse = httpx.get("http://mails-generator-service:8000/")
+if demoMainButton == 1:
+    demoResponse = httpx.get("http://main-service:8001")
+    st.write(demoResponse)
+
+demoGeneratorButton = st.button(
+    label="check generator server",
+    type="primary",
+    # on_click=generate_mails,
+    # args=(email_address, business_name),
+)
+
+if demoGeneratorButton == 1:
+    demoResponse = httpx.get("http://mails-generator-service:8000")
+    st.write(demoResponse)
+
+demoSenderButton = st.button(
+    label="check sender server",
+    type="primary",
+    # on_click=generate_mails,
+    # args=(email_address, business_name),
+)
+
+if demoSenderButton == 1:
+    demoResponse = httpx.get("http://mails-sender-service:8002")
+    st.write(demoResponse)
+
+sendDummyMailButton = st.button(
+    label="send dummy mail to sender server",
+    type="primary",
+    # on_click=generate_mails,
+    # args=(email_address, business_name),
+)
+
+if sendDummyMailButton == 1:
+    demoResponse = httpx.get("http://mails-sender-service:8002/dummymail")
     st.write(demoResponse)
