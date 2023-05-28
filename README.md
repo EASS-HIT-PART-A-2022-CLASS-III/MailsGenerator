@@ -10,7 +10,8 @@ Say goodbye to the hassle of composing emails from scratch. Our intelligent plat
 Our system will send the emails to your designated email address when the composing is complete.
 Streamline your email workflow, save valuable time, and make a lasting impression with MailGenius - your go-to solution for professional business email generation.
 
-![eass](https://github.com/EASS-HIT-PART-A-2022-CLASS-III/MailsGenerator/assets/9317197/aa5b46aa-d6fb-49f0-8c9c-d0f7bb016a81)
+![eass](https://github.com/EASS-HIT-PART-A-2022-CLASS-III/MailsGenerator/assets/9317197/d199a119-33d1-4749-9262-a58895558d67)
+
 
 
 ## How To Install
