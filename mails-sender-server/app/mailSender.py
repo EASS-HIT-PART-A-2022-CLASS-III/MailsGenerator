@@ -5,7 +5,7 @@ from typing import List
 
 from models import GeneratedMails
 
-email_sender = "advanceadam4@gmail.com"
+emailSender = "advanceadam4@gmail.com"
 password = "drsxattlvnurgumo"
 
 
@@ -13,46 +13,45 @@ def sendMail(generatedMails: GeneratedMails):
     subject = "MailGenius: Your Business Mail Generator"
     body = getMailBody(generatedMails)
 
-    email = EmailMessage()
-
-    email["From"] = email_sender
-    email["To"] = generatedMails.emailAddress
-    email["Subject"] = subject
-
-    email.set_content(body)
-
-    context = ssl.create_default_context()
-
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
-        smtp.login(email_sender, password)
-        smtp.sendmail(email_sender, generatedMails.emailAddress, email.as_string())
+    sendGmail(subject, body, generatedMails.emailAddress)
 
 
 def getMailBody(generatedMails: GeneratedMails):
-    explanation = "These are the generated mails:\n\n"
-    mails_body = explanation + "\n".join(
-        f"This is the {i+1} mail: {mail}" for i, mail in enumerate(generatedMails.mails)
+    explanation = "<h1 style='color: #008080; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold;'>These are the generated mails:</h1>"
+    mailsBody = explanation + "<br><br>".join(
+        "<h2 style='color: #4C4C4C; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold;'>Mail #{}:</h2>\n<p style='font-family: Arial, sans-serif; font-size: 14px;'>{}</p>".format(
+            i + 1, mail.replace("\n", "<br>")
+        )
+        for i, mail in enumerate(generatedMails.mails)
     )
 
-    return mails_body
+    html_content = f'<div dir="ltr">{mailsBody}</div>'
+
+    return html_content
 
 
 def sendDummyMail():
     subject = "Dummy mail for testing"
-    body = " this is a dummy mail body"
+    body = " <h1> this is a dummy mail body </h1>"
 
     to = "advanceadam1@gmail.com"
 
+    sendGmail(subject, body, to)
+
+
+def sendGmail(subject, body, receiverAddress):
     email = EmailMessage()
 
-    email["From"] = email_sender
-    email["To"] = to
+    email["From"] = emailSender
+    email["To"] = receiverAddress
     email["Subject"] = subject
 
-    email.set_content(body)
+    email.add_alternative(body, subtype="html")
 
     context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
-        smtp.login(email_sender, password)
-        smtp.sendmail(email_sender, to, email.as_string())
+        smtp.login(emailSender, password)
+        smtp.sendmail(emailSender, receiverAddress, email.as_string())
