@@ -60,8 +60,8 @@ async def generateAllMails(
         asyncTasks.append(asyncio.create_task(tryGeneratingMailFromChatgpt(prompt)))
 
     asyncResults = await asyncio.gather(*asyncTasks)
-    print("++++++++++++++")
-    print(asyncResults, flush=True)
+    # print("++++++++++++++")
+    # print(asyncResults, flush=True)
 
     final_result = [result for result in asyncResults if result is not None]
 

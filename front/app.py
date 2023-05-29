@@ -120,7 +120,7 @@ if buttonClicked == 1:
     else:
         st.success("Form already submitted!")
 
-
+""" FOR TESTING:
 demoMainButton = st.button(
     label="check main server",
     type="primary",
@@ -164,3 +164,4 @@ sendDummyMailButton = st.button(
 if sendDummyMailButton == 1:
     demoResponse = httpx.get("http://mails-sender-service:8002/dummymail")
     st.write(demoResponse)
+"""
