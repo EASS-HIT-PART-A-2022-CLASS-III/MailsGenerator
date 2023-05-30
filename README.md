@@ -33,11 +33,11 @@ docker-compose up
  
  ### Run Unit-Tests with Pytest
  
- 1. Build with Docker-Compose
+ 1. Build with Docker-Compose:
  ```
  docker-compose up -d
  ```
- 2. Enter to the "mails-generator-service" with bash:
+ 2. First test - enter to the "mails-generator-service" with bash:
  ```
  docker-compose exec mails-generator-service bash
  ```
@@ -49,7 +49,31 @@ docker-compose up
  ```
  CTRL + D
  ```
- 5. Close Docker-Compose:
+ 5. Second test - enter to the "mails-sender-service" with bash:
+ ```
+ docker-compose exec mails-sender-service bash
+ ```
+ 6. Run Pytest
+ ```
+ pytest unit_test.py
+ ```
+ 7. Close bash:
+ ```
+ CTRL + D
+ ```
+ 8. Third test - enter to the "main-service" with bash:
+ ```
+ docker-compose exec main-service bash
+ ```
+ 9. Run Pytest
+ ```
+ pytest unit_test.py
+ ```
+ 10. Close bash:
+ ```
+ CTRL + D
+ ```
+ 11. Close Docker-Compose:
  ```
  docker-compose down
  ```
