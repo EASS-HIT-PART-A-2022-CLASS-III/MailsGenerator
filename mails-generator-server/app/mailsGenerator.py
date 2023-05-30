@@ -5,7 +5,7 @@ from prompts import *
 
 from models import *
 
-key = "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"
+key = "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"
 
 openai.api_key = key
 modelCode = "gpt-3.5-turbo"
