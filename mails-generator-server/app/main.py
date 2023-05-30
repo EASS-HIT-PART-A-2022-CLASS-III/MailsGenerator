@@ -5,7 +5,7 @@ import httpx
 import asyncio
 
 
-from app.mailsGenerator import *
+from mailsGenerator import *
 
 from models import BusinessInfo, GeneratedMails
 

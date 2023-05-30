@@ -1,7 +1,7 @@
 import openai
 import asyncio
 
-from app.prompts import *
+from prompts import *
 
 from models import *
 

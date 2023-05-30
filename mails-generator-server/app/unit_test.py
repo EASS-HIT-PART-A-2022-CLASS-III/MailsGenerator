@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
 import pytest
 
-from app.main import app
-from app.mailsGenerator import *
+from main import app
+from mailsGenerator import *
 
 client = TestClient(app)
 
@@ -26,5 +26,5 @@ def test_get_root(test_client):
 
 @pytest.mark.asyncio
 async def test_generateMailFromChatgpt(test_prompt):
-    response = await generateMailFromChatgpt(test_prompt)
+    response = await tryGeneratingMailFromChatgpt(test_prompt)
     assert response != ""
