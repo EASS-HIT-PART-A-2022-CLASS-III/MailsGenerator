@@ -16,12 +16,17 @@ Streamline your email workflow, save valuable time, and make a lasting impressio
 # Instructions
 ### How To Install
 
-1. clone the repo:
+1. Clone the repo:
 ```
 git clone https://github.com/EASS-HIT-PART-A-2022-CLASS-III/MailsGenerator
 ```
 
-2. Build the project with Docker-compose:
+2. Enter the folder:
+```
+cd MailsGenerator
+```
+
+3. Build the project with Docker-compose:
 
 ```
 docker-compose up
