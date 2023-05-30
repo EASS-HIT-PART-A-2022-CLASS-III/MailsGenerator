@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List
 import httpx
 
-from app.mailSender import *
+from mailSender import *
 
 from models import BusinessInfo, GeneratedMails
 
