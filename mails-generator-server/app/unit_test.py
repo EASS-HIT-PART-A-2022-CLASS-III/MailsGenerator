@@ -6,8 +6,6 @@ from mailsGenerator import *
 
 client = TestClient(app)
 
-test_prompt = "hello world"
-
 
 @pytest.fixture(scope="module")
 def test_client():
@@ -16,8 +14,6 @@ def test_client():
 
 
 # Test root
-
-
 def test_get_root(test_client):
     response = test_client.get("/")
     assert response.status_code == 200
@@ -25,6 +21,7 @@ def test_get_root(test_client):
 
 
 @pytest.mark.asyncio
-async def test_generateMailFromChatgpt(test_prompt):
+async def test_generateMailFromChatgpt():
+    test_prompt = "hello world"
     response = await tryGeneratingMailFromChatgpt(test_prompt)
     assert response != ""
