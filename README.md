@@ -12,6 +12,9 @@ Streamline your email workflow, save valuable time, and make a lasting impressio
 
 ![eass](https://github.com/EASS-HIT-PART-A-2022-CLASS-III/MailsGenerator/assets/9317197/d199a119-33d1-4749-9262-a58895558d67)
 
+### Video demo:
+https://youtu.be/79hfzSPRJj0
+* please note the chapters in the video's description
 
 # Instructions
 ### How To Install
